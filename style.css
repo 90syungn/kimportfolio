@@ -274,3 +274,36 @@ a:hover::after { transform: translateX(6px); }
     }
     @keyframes drift { to { transform: translateY(70px); opacity: .1; } }
 }
+
+/* ===== NEW "Point of the website" SECTION ===== */
+/* (its class attribute has spaces, so the browser sees 4 classes: Point, of, the, website) */
+.about { padding-bottom: 1.5rem; }
+
+.Point {
+    background: var(--mid);
+    padding: 1.5rem var(--pad) 3.5rem;
+    animation: rise .8s .15s ease both;
+}
+/* first <p> = the label, styled like the other section titles */
+.Point > p:first-child {
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    margin: 0 0 1.4rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid currentColor;
+    display: inline-block;
+}
+.Point p { margin: 0; max-width: 560px; }
+.Point > p + p { font-size: 1.05rem; }
+/* the stray empty <p> created by nesting <p> inside <p> */
+.Point p:empty { display: none; }
+
+@supports (animation-timeline: view()) {
+    .Point {
+        animation: reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 45%;
+    }
+}
