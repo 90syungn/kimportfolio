@@ -1,9 +1,276 @@
-h1{
-    text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --black: #0e0e0e;
+    --light: #e4e2df;
+    --mid: #cfcdca;
+    --off: #f5f4f2;
+    --pad: max(1.5rem, calc((100% - 960px) / 2));
 }
-h3{
-    text-align: center;
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 28px 0 0;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: .95rem;
+    line-height: 1.7;
+    color: var(--black);
+    background: var(--light);
 }
-img src=Telescope{
-    text-align: center;
+
+/* thin black bar across the top */
+body::before {
+    content: "COMPUTER SCIENCE  /  ASTROPHYSICS  /  PORTFOLIO";
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 28px;
+    z-index: 10;
+    background: var(--black);
+    color: #fff;
+    font-size: .62rem;
+    letter-spacing: .2em;
+    line-height: 28px;
+    padding: 0 var(--pad);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+body > hr, body > br { display: none; }
+i { font-style: normal; }
+h1, h3 { text-align: left; margin: 0; }
+
+/* HERO */
+.intro {
+    padding: 6rem var(--pad) 4rem;
+    background: var(--light);
+}
+h1 {
+    font-size: clamp(3rem, 13vw, 9.5rem);
+    font-weight: 800;
+    line-height: .95;
+    letter-spacing: -.03em;
+    word-break: break-word;
+    transition: letter-spacing .5s;
+}
+h1:hover { letter-spacing: .01em; }
+.intro h3 {
+    display: inline-block;
+    margin-top: 1.6rem;
+    font-size: .7rem;
+    font-weight: 500;
+    letter-spacing: .3em;
+    border-bottom: 1px solid var(--black);
+    padding-bottom: .3rem;
+}
+
+/* section bands */
+.about, .skills, .skills-unrelated, .projects {
+    padding: 3.5rem var(--pad);
+}
+.about { background: var(--mid); }
+.skills { background: var(--black); color: #fff; }
+.skills-unrelated { background: var(--light); }
+.projects { background: var(--off); }
+
+.section-title {
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    margin: 0 0 1.4rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid currentColor;
+    display: inline-block;
+}
+h3.section-title { font-size: .8rem; }
+.projects > .section-title { margin-bottom: 2rem; }
+
+.about p:not(.section-title) { max-width: 560px; font-size: 1.05rem; }
+
+/* skills as outlined tags */
+.skills ul, .skills-unrelated ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    padding: 0;
+    margin: 0;
+}
+.skills li, .skills-unrelated li {
+    padding: .45rem 1.1rem;
+    border: 1px solid currentColor;
+    font-size: .7rem;
+    font-weight: 500;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    transition: background .2s, color .2s;
+}
+.skills li:hover { background: #fff; color: var(--black); }
+.skills-unrelated li:hover { background: var(--black); color: #fff; }
+.skills li ul { display: block; margin-top: .3rem; }
+.skills li li, .skills li li:hover { border: none; padding: 0; background: none; color: inherit; opacity: .7; }
+
+/* PROJECTS */
+.projects { counter-reset: project; }
+.projects hr {
+    border: none;
+    border-top: 1px solid var(--black);
+    margin: 2.5rem 0;
+}
+.projects h3:not(.section-title) {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin-bottom: .6rem;
+}
+.projects h3:not(.section-title)::before {
+    counter-increment: project;
+    content: "0" counter(project);
+    display: block;
+    font-size: .7rem;
+    font-weight: 500;
+    letter-spacing: .3em;
+    margin-bottom: .3rem;
+}
+.projects ul { padding-left: 1.1rem; margin: .5rem 0; }
+.projects li { margin: .1rem 0; }
+note { display: block; margin-top: .6rem; font-size: .75rem; letter-spacing: .05em; opacity: .6; }
+
+/* black & white photos that reveal colour on hover */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    filter: grayscale(1) contrast(1.05);
+    transition: filter .5s, transform .5s;
+}
+img:hover { filter: none; transform: scale(1.02); }
+
+/* WEBSITES band (heading + list sit directly in body) */
+body > h3 {
+    padding: 3.5rem var(--pad) 0;
+    background: var(--black);
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .3em;
+}
+body > ol {
+    margin: 0;
+    padding: 1.5rem var(--pad) 4rem calc(var(--pad) + 1.4rem);
+    background: var(--black);
+    color: #fff;
+}
+body > ol > li { margin-bottom: 1rem; font-size: 1.05rem; }
+body > ol ul { font-size: .85rem; opacity: .7; }
+
+a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    transition: opacity .2s;
+}
+a::after { content: " →"; }
+a:hover { opacity: .55; }
+
+/* load-in */
+.intro, .about, .skills, .skills-unrelated, .projects { animation: rise .8s ease both; }
+.about { animation-delay: .1s; }
+.skills { animation-delay: .2s; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}
+
+/* ===== MORE MOTION (CSS only) ===== */
+
+/* scrolling ticker in the top bar */
+body::before { text-indent: 100%; animation: ticker 20s linear infinite; }
+@keyframes ticker { to { text-indent: -120%; } }
+
+/* name wipes in on load */
+h1 { animation: wipe 1.3s cubic-bezier(.2, .8, .2, 1) backwards; }
+@keyframes wipe { from { clip-path: inset(0 100% 0 0); letter-spacing: .08em; } }
+.intro h3 { animation: rise 1s .9s ease backwards; }
+
+/* tags fill in from the left on hover */
+.skills li {
+    background: linear-gradient(#fff, #fff) no-repeat left / 0% 100%;
+    transition: background-size .35s, color .3s;
+}
+.skills li:hover { background: linear-gradient(#fff, #fff) no-repeat left / 100% 100%; color: var(--black); }
+.skills-unrelated li {
+    background: linear-gradient(var(--black), var(--black)) no-repeat left / 0% 100%;
+    transition: background-size .35s, color .3s;
+}
+.skills-unrelated li:hover { background: linear-gradient(var(--black), var(--black)) no-repeat left / 100% 100%; color: #fff; }
+
+/* links: underline retracts, arrow slides */
+a { border-bottom: none; background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 100% 1px; transition: background-size .3s; }
+a::after { display: inline-block; transition: transform .3s; }
+a:hover { background-size: 0 1px; opacity: 1; }
+a:hover::after { transform: translateX(6px); }
+
+/* project titles nudge right */
+.projects h3:not(.section-title) { transition: padding-left .4s; }
+.projects h3:not(.section-title):hover { padding-left: .8rem; }
+
+/* scroll-driven effects (Chrome, Edge, Safari; others keep the load fade) */
+@supports (animation-timeline: view()) {
+    /* progress bar under the top strip */
+    body::after {
+        content: "";
+        position: fixed;
+        top: 28px; left: 0;
+        width: 100%; height: 3px;
+        background: #fff;
+        mix-blend-mode: difference;
+        transform-origin: left;
+        transform: scaleX(0);
+        z-index: 11;
+        animation: grow linear both;
+        animation-timeline: scroll(root);
+    }
+    @keyframes grow { to { transform: scaleX(1); } }
+
+    /* bands slide up as they enter */
+    .about, .skills, .skills-unrelated, .projects, body > h3 {
+        animation: reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 45%;
+    }
+    @keyframes reveal { from { opacity: 0; transform: translateY(50px); } }
+
+    /* photos are uncovered as you scroll */
+    img {
+        animation: unveil linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 40%;
+    }
+    @keyframes unveil { from { clip-path: inset(0 0 100% 0); opacity: .3; } to { clip-path: inset(0); opacity: 1; } }
+
+    /* dividers draw across */
+    .projects hr {
+        transform-origin: left;
+        animation: draw linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+    }
+    @keyframes draw { from { transform: scaleX(0); } }
+
+    /* name drifts down and fades as you leave the hero */
+    h1 {
+        animation: wipe 1.3s cubic-bezier(.2, .8, .2, 1) backwards, drift linear both;
+        animation-timeline: auto, scroll(root);
+        animation-range: normal, 0vh 60vh;
+    }
+    @keyframes drift { to { transform: translateY(70px); opacity: .1; } }
 }
